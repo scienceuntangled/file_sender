@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SU Scout File Sender</title>
+    <script src="/main.js"></script>
+    <link rel="stylesheet" href="/assets/fontawesome.all.min.css" />
+    <script src="/assets/fontawesome.all.min.js"></script>
+    <style>
+      .cent { margin-left:auto; margin-right:auto; }
+      #la-qrcode img, #ld-qrcode img { margin-left:auto; margin-right:auto; }
+      .linkbutton { border-radius:8px; border:1px solid transparent; padding:0.6em 1.2em; font-size:1em; font-weight:500; font-family:inherit; color:#0f0f0f; background-color:#ffffff;
+                    transition:border-color 0.25s; box-shadow:0 2px 2px rgba(0, 0, 0, 0.2); cursor:pointer; text-align:center; text-decoration:none; display:inline-block; }
+      .linkbutton:hover { border-color: #396cd8; color:#0f0f0f; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div style="margin-left:20vw; text-align:left; padding-left:0;">
+        <a href="https://apps.untan.gl" target="_blank">
+          <img style="max-width:50vw;" src="/assets/su_title.png" alt="Science Untangled logo" />
+        </a>
+      </div>
+      <h1>Scout File Sender</h1>
+      <p><button id="selbut">Select scout file</button></p>
+      <p>Scout file: <span id="scout-file"></span> <span id="scout-file-status"></span> <span id="status-msg"></span></p>
+      <!-- todo implement other upload options here -->
+      <p><label title="Base64-encoding might be necessary if the input file uses a non-standard text encoding (e.g. for accented characters or Cyrillic, kanji, or other non-ASCII characters)"><input id="b64" type="checkbox" checked onclick="{ console.log('b64_' + this.checked); emit('b64_' + this.checked) }" />Use base64 encoding?</label></p>
+      <p>Pantry ID: <input id="pantry-id" placeholder="Enter your pantry ID" />
+        <button id="pid-button" onclick='send_pid()' title="Set your pantry ID" style="visibility:hidden;">Set</button>
+      (get one from the <a href="https://getpantry.cloud" alt="Pantry site">Pantry website</a>)
+      </p>
+      <div id="live-outer" class="cent" style="visibility:hidden; width:100%;">
+          <div id="su_link" style="width:40%; margin-left:auto; margin-right:auto; display:inline-block;">
+            <div><p>SU live app link (subscribers only):<br />
+                <a id="lalink" class="linkbutton" href="" target="_blank" title="Open in browser"><i class="fa-solid fa-link"></i></a>
+                <button onclick="lau2clip()" title="Copy to clipboard"><i class="fa-regular fa-copy"></i></button>
+            </p></div>
+          </div>
+          <div style="width:40%; margin-left:auto; margin-right:auto; display:inline-block;">
+            <div><p>Data link:<br />
+                <a id="lulink" class="linkbutton" href="" target="_blank" title="Open in browser"><i class="fa-solid fa-link"></i></a>
+                <button onclick="ldu2clip()" title="Copy to clipboard"><i class="fa-regular fa-copy"></i></button></p></div>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
