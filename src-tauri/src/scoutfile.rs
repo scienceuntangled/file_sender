@@ -71,7 +71,12 @@ pub struct ScoutFile { inner: Arc<Mutex<ScoutFileInner>> }
 fn sf_check_send(sf: Arc<Mutex<ScoutFileInner>>) {
     let temp = Arc::clone(&sf);
     let local_self = temp.lock().unwrap();
-    if local_self.modified && !local_self.busy {
+
+    if local_self.path.as_path().to_str().unwrap().len() < 1 {
+        // file path has not been set
+        local_self.app.emit_all("scout_file_status", Payload { message: "na".into() }).unwrap();
+        return
+    } else if local_self.modified && !local_self.busy {
         if IS_DEBUG { println!("Needs sending"); }
         local_self.app.emit_all("scout_file_status", Payload { message: "uploading".into() }).unwrap();
         drop(local_self);
@@ -80,7 +85,11 @@ fn sf_check_send(sf: Arc<Mutex<ScoutFileInner>>) {
         if IS_DEBUG { println!("Needs sending but busy"); }
     } else {
         if IS_DEBUG { println!("Does not need sending"); }
-        local_self.app.emit_all("scout_file_status", Payload { message: "ok".into() }).unwrap();
+        // send OK if file exists
+        match local_self.path.try_exists() {
+            Ok(_) => { local_self.app.emit_all("scout_file_status", Payload { message: "ok".into() }).unwrap(); },
+            Err(_) => { local_self.app.emit_all("scout_file_status", Payload { message: "file does not exist".into() }).unwrap(); }
+        }
     }
 }
 
@@ -252,7 +261,7 @@ impl ScoutFile {
     pub fn get_live_data_url(&mut self) -> String {
         let this = self.inner.lock().unwrap();
         let bn = get_basket_name(this.path.clone());
-        println!("Basket name: {:?}", bn);
+        if IS_DEBUG { println!("Basket name: {:?}", bn); }
         make_live_data_url(this.pantry_id.clone(), bn)
     }
 

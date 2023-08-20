@@ -80,6 +80,8 @@ listen("scout_file_status", (event) => {
         stEl.innerHTML =  "<i style=\"color:green;\" class=\"fa-regular fa-circle-check\"></i>"
     } else if (event.payload.message === "uploading") {
         stEl.innerHTML =  "<i style=\"color:black;\" class=\"fa-solid fa-spinner fa-spin\"></i>"
+    } else if (event.payload.message === "na") {
+        stEl.innerHTML =  ""
     } else {
         stEl.innerHTML =  "<i style=\"color:red;\" class=\"fa-regular fa-circle-xmark\"></i> (" + event.payload.message + ")";
     }
