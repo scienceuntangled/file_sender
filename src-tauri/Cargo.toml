@@ -1,6 +1,6 @@
 [package]
 name = "scoutfile-sender"
-version = "0.1.0"
+version = "0.1.1"
 description = "Monitor a file and send it to a remote server when it changes"
 authors = ["ben@untan.gl"]
 license = "MIT"

@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "scoutfile-sender",
+    "productName": "scoutfile-sender-nosu",
     "version": "0.1.1"
   },
   "tauri": {

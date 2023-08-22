@@ -36,16 +36,16 @@ jobs:
         with:
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: 'Scoutfile Sender v__VERSION__'
-          releaseBody: 'See the assets to download the version for your platform.'
+          releaseBody: 'See the assets to download the version for your platform. The files named nosu show only the live data URL, not the Science Untangled live app url.'
           releaseDraft: true
           prerelease: false
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-no-su-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'Scoutfile Sender (no SU link) v__VERSION__'
-          releaseBody: 'A version of the app with only the live data URL, not the Science Untangled live app url. See the assets to download the version for your platform.'
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: 'Scoutfile Sender v__VERSION__'
+          releaseBody: 'See the assets to download the version for your platform. The files named nosu show only the live data URL, not the Science Untangled live app url.'
           releaseDraft: true
           prerelease: false
-          args: --features hide-su-link
+          args: --features hide-su-link --config tauri.conf-nosu.json
