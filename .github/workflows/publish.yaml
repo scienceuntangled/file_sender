@@ -48,4 +48,4 @@ jobs:
           releaseBody: 'See the assets to download the version for your platform. The files named nosu show only the live data URL, not the Science Untangled live app url.'
           releaseDraft: true
           prerelease: false
-          args: --features hide-su-link --config tauri.conf-nosu.json
+          args: "--features hide-su-link --config src-tauri/tauri.conf-nosu.json"
